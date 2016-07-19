@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>bps-test</param-value>
+	</context-param>
+	<!-- 流程引擎配置 -->
+	<context-param>
+		<param-name>flowEngineXmlLoactions</param-name>
+		<param-value>WEB-INF/classes/config/flowTemplet/1087.xml,WEB-INF/classes/config/flowTemplet/2280.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.allinpay.flow.init.FlowTempletsInitialization</listener-class>
+	</listener>
+	<!-- Spring 容器加载 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:config/spring/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- 同步流程 -->
+	<servlet>
+		<servlet-name>syncServlet</servlet-name>
+		<servlet-class>com.allinpay.test.servlet.SynServletTest</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>syncServlet</servlet-name>
+		<url-pattern>/syncService/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 异步流程开始 -->
+	<servlet>
+		<servlet-name>asyncStartServlet</servlet-name>
+		<servlet-class>com.allinpay.test.servlet.AsynStartServletTest</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>asyncStartServlet</servlet-name>
+		<url-pattern>/asynStartService/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 异步流程回调 -->
+	<servlet>
+		<servlet-name>syncSecondServlet</servlet-name>
+		<servlet-class>com.allinpay.test.servlet.AsynSecondServletTest</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>syncSecondServlet</servlet-name>
+		<url-pattern>/asynSecondService/*</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

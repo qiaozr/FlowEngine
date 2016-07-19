@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="C:\Users\Q\.m2\repository\com\ibm\db2\db2jcc4\1.0.0\db2jcc4-1.0.0.jar" />
+	<context id="mybatis">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 <property name="suppressAllComments" 
+				value="true" /> -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.ibm.db2.jcc.DB2Driver"
+			connectionURL="jdbc:db2://localhost:50000/wssonldb:currentSchema=WSS;"  
+			userId="Q"
+			password="380380">
+		</jdbcConnection>
+
+ 		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true" />
+		</javaTypeResolver> 
+
+		<javaModelGenerator targetPackage="com.allinpay.flow.model"
+			targetProject="Bps-test/src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+			<property name="rootClass" value="com.allinpay.base.holder.BaseHolder" />
+
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="com.allinpay.flow.mapper"
+			targetProject="Bps-test/src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.allinpay.flow.dao" targetProject="Bps-test/src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		<table   tableName="TB_BPS_TX_LOG" domainObjectName="TbBpsTxLog">
+			<generatedKey column="ENTITY_OID"
+				sqlStatement="select nextval for S_TB_BPS_TX_LOG from sysibm.dual"
+				identity="false" />
+		</table>
+		
+	</context>
+</generatorConfiguration>
